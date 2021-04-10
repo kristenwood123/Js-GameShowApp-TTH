@@ -1,11 +1,11 @@
-const qwerty = document.getElementById('qwerty')
-const phrase = document.getElementById('phrase').children[0]
-const startBtn = document.querySelector('.btn__reset')
-const scoreboard = document.getElementById('scoreboard').children[0]
-const heart = scoreboard.querySelectorAll('li')
-let main = document.querySelector('.main-container')
+const qwerty = document.getElementById('qwerty');
+const phrase = document.getElementById('phrase');
+const startBtn = document.querySelector('.btn__reset');
+const scoreboard = document.getElementById('scoreboard').children[0];
+const heart = scoreboard.querySelectorAll('li');
+let main = document.querySelector('.main-container');
 
-let match;
+let match = null;
 let missed = 0;
 
 const phrases = [
@@ -41,23 +41,17 @@ addPhraseToDisplay(newPhrase)
 
 
 const checkLetter = btn => {
-  const letters = phrase.querySelectorAll('li')
+  const letters = phrase.getElementsByTagName('li')
   const length = letters.length;
+
   for (let i = 0; i < length; i++) {
-    if (letters[i].classList.contains('letter')) {
-      let containsLetter = letters[i]
-      //if li node list contains the same letter as the button clicked
-      if (containsLetter.textContent.toLowerCase() === btn) {
-        containsLetter.classList.add('show')
-        match = btn;
-      } else {
-        if (!match) {
-          missed + 1;
-          console.log('missed', missed);
-        }
-      }
+    if (letters[i].innerHTML === btn) {
+      match = btn;
+      console.log(match);
+      return letters[i].classList.add('show')
     }
-  } return match;
+  } return match
+
 }
 
 startBtn.addEventListener('click', () => {
@@ -65,10 +59,14 @@ startBtn.addEventListener('click', () => {
 })
 
 qwerty.addEventListener('click', e => {
-  let clickedBtn = e.target;
-  clickedBtn.classList.add('chosen');
-  clickedBtn = clickedBtn.textContent;
-  checkLetter(clickedBtn)
+  let clickedBtn = e.target
+  if (clickedBtn.className === 'keyrow') {
+    return;
+  } else {
+    clickedBtn.classList.add('chosen');
+    clickedBtn = clickedBtn.textContent;
+  }
+  let results = checkLetter(clickedBtn)
 })
 
 
