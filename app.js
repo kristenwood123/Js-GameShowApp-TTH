@@ -1,8 +1,11 @@
 const qwerty = document.getElementById('qwerty')
 const phrase = document.getElementById('phrase').children[0]
 const startBtn = document.querySelector('.btn__reset')
+const scoreboard = document.getElementById('scoreboard').children[0]
+const heart = scoreboard.querySelectorAll('li')
 let main = document.querySelector('.main-container')
 
+let match;
 let missed = 0;
 
 const phrases = [
@@ -28,6 +31,8 @@ const addPhraseToDisplay = arr => {
     phrase.appendChild(li)
     if (li.textContent !== ' ') {
       li.classList.add('letter')
+    } else {
+      li.classList.add('space')
     }
   }
 }
@@ -41,26 +46,30 @@ const checkLetter = btn => {
   for (let i = 0; i < length; i++) {
     if (letters[i].classList.contains('letter')) {
       let containsLetter = letters[i]
-      if (containsLetter.textContent === btn) {
+      //if li node list contains the same letter as the button clicked
+      if (containsLetter.textContent.toLowerCase() === btn) {
         containsLetter.classList.add('show')
-        let match = btn
+        match = btn;
+      } else {
+        if (!match) {
+          missed + 1;
+          console.log('missed', missed);
+        }
       }
     }
-  }
-  console.log(match);
-  return match
+  } return match;
 }
-
 
 startBtn.addEventListener('click', () => {
   main.children[0].remove()
 })
 
 qwerty.addEventListener('click', e => {
-  let clickedBtn = e.target.textContent;
+  let clickedBtn = e.target;
+  clickedBtn.classList.add('chosen');
+  clickedBtn = clickedBtn.textContent;
   checkLetter(clickedBtn)
 })
-
 
 
 // Create CSS transitions for each letter in the phrase display as they are revealed.
