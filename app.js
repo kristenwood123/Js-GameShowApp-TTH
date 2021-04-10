@@ -1,5 +1,5 @@
 const qwerty = document.getElementById('qwerty')
-const phrase = document.getElementById('phrase')
+const phrase = document.getElementById('phrase').children[0]
 const startBtn = document.querySelector('.btn__reset')
 let main = document.querySelector('.main-container')
 
@@ -19,30 +19,26 @@ const phrases = [
 
 const getRandomPhraseAsArray = (phrases) => {
   const length = phrases.length
-  //choose random index 
   let randomIndex = Math.floor(Math.random() * length)
-  //choose random phrase in phrases array
-  //split that phrase into a new array of characters
-  let phrase = [...phrases[randomIndex]]
-  console.log(phrase);
-
-
-  //return the new chracter array
+  return newPhrase = [...phrases[randomIndex]]
 }
 
 getRandomPhraseAsArray(phrases)
 
 
+const addPhraseToDisplay = (arr) => {
+
+  for (let i = 0; i < arr.length; i++) {
+    const li = document.createElement('li')
+    li.textContent = arr[i];
+    phrase.appendChild(li)
+  }
 
 
+}
 
 
-
-
-
-
-
-
+addPhraseToDisplay(newPhrase)
 
 
 
