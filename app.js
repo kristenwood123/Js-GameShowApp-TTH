@@ -5,10 +5,6 @@ let main = document.querySelector('.main-container')
 
 let missed = 0;
 
-startBtn.addEventListener('click', () => {
-  main.children[0].remove()
-})
-
 const phrases = [
   'Salt and Pepper',
   'Pumpkin spice latte',
@@ -17,29 +13,53 @@ const phrases = [
   'It takes two to tango'
 ];
 
-const getRandomPhraseAsArray = (phrases) => {
+const getRandomPhraseAsArray = phrases => {
   const length = phrases.length
   let randomIndex = Math.floor(Math.random() * length)
   return newPhrase = [...phrases[randomIndex]]
 }
-
 getRandomPhraseAsArray(phrases)
 
 
-const addPhraseToDisplay = (arr) => {
-
+const addPhraseToDisplay = arr => {
   for (let i = 0; i < arr.length; i++) {
     const li = document.createElement('li')
     li.textContent = arr[i];
     phrase.appendChild(li)
+    if (li.textContent !== ' ') {
+      li.classList.add('letter')
+    }
   }
-
-
 }
-
 
 addPhraseToDisplay(newPhrase)
 
+
+const checkLetter = btn => {
+  const letters = phrase.querySelectorAll('li')
+  const length = letters.length;
+  for (let i = 0; i < length; i++) {
+    if (letters[i].classList.contains('letter')) {
+      let containsLetter = letters[i]
+      if (containsLetter.textContent === btn) {
+        containsLetter.classList.add('show')
+        let match = btn
+      }
+    }
+  }
+  console.log(match);
+  return match
+}
+
+
+startBtn.addEventListener('click', () => {
+  main.children[0].remove()
+})
+
+qwerty.addEventListener('click', e => {
+  let clickedBtn = e.target.textContent;
+  checkLetter(clickedBtn)
+})
 
 
 
