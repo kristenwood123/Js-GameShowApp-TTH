@@ -16,6 +16,7 @@ const phrases = [
   'It takes two to tango'
 ];
 
+
 const getRandomPhraseAsArray = phrases => {
   const length = phrases.length
   //getting random number 0 - 4
@@ -74,15 +75,12 @@ const checkWin = () => {
   }
 }
 
-
 startBtn.addEventListener('click', () => {
   if (startBtn.textContent === 'Start Game') {
     overlay.style.display = 'none';
   } else if (startBtn.textContent === 'Reset') {
     location.reload()
-    overlay.style.display = 'none';
   }
-
 })
 
 qwerty.addEventListener('click', e => {
