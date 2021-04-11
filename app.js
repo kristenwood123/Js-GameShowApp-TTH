@@ -3,9 +3,12 @@ const phrase = document.getElementById('phrase');
 const startBtn = document.querySelector('.btn__reset');
 const scoreboard = document.getElementById('scoreboard')
 const overlay = document.getElementById('overlay')
-let main = document.querySelector('.main-container');
+const hearts = document.querySelectorAll('.tries img')
+const main = document.querySelector('.main-container');
 
-let match = null;
+//resetting game
+
+
 let missed = 0;
 
 const phrases = [
@@ -36,38 +39,64 @@ const addPhraseToDisplay = arr => {
     }
   }
 }
-
 addPhraseToDisplay(newPhrase)
 
 
 const checkLetter = btn => {
   const letters = phrase.querySelectorAll('li')
-  let lettersArr = Array.from(letters)
-  const length = lettersArr.length;
+  const length = letters.length;
+  let match = null;
 
   for (let i = 0; i < length; i++) {
-    if (lettersArr[i].innerHTML.toLowerCase() === btn) {
+    if (letters[i].innerHTML.toLowerCase() === btn) {
       match = btn;
-      lettersArr[i].classList.add('show')
-    } else {
-      console.log('not found');
+      letters[i].classList.add('show')
     }
-  } return match;
+  }
+  return match;
 }
 
 const checkWin = () => {
   let letterClasses = document.querySelectorAll('.letter')
-  let showClasses = document.querySelectorAll('.show')
-  console.log(letterClass.length, showClasses.length);
+  let showClasses = document.querySelectorAll('.show');
+
   if (letterClasses.length === showClasses.length) {
     overlay.classList.add('win');
-    alert('you won!')
+    overlay.children[0].innerHTML = 'You won!'
+    overlay.style.display = 'flex'
+    resetGame()
+  } else if (missed > 4) {
+    overlay.classList.add('lost');
+    overlay.children[0].innerHTML = 'You lost!'
+    overlay.style.display = 'flex'
+    resetGame()
   }
 }
-checkWin()
+
+const resetGame = () => {
+  startBtn.innerHTML = 'Reset Game'
+  startBtn.addEventListener('click', () => {
+    missed = 0;
+    let resetLetters = document.getElementsByClassName('letter')
+    let resetBtns = document.querySelectorAll('button')
+    for (let i = 0; i < resetLetters.length; i++) {
+      if (resetLetters[i].classList.contains('show')) {
+        resetLetters[i].classList.remove('show')
+      }
+    }
+    for (let i = 0; i < resetBtns.length; i++) {
+      if (resetBtns[i].classList.contains('chosen')) {
+        resetBtns[i].classList.remove('chosen')
+      }
+    } for (let i = 0; i < hearts.length; i++) {
+      hearts[i].setAttribute('src', 'images/liveHeart.png')
+    }
+  })
+  getRandomPhraseAsArray(phrases)
+}
 
 startBtn.addEventListener('click', () => {
-  main.children[0].remove()
+  main.children[0].style.display = 'none'
 })
 
 qwerty.addEventListener('click', e => {
@@ -78,7 +107,13 @@ qwerty.addEventListener('click', e => {
     clickedBtn.classList.add('chosen');
     clickedBtn = clickedBtn.textContent;
   }
-  let results = checkLetter(clickedBtn)
+  let result = checkLetter(clickedBtn)
+  if (result === null) {
+    missed += 1;
+    //remove the first heart in the list of hearts
+    hearts[missed - 1].setAttribute("src", "images/lostHeart.png");
+  }
+  checkWin()
 })
 
 
