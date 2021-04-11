@@ -18,14 +18,18 @@ const phrases = [
 
 const getRandomPhraseAsArray = phrases => {
   const length = phrases.length
+  //getting random number 0 - 4
   let randomIndex = Math.floor(Math.random() * length)
-  return newPhrase = [...phrases[randomIndex]]
+  newPhrase = [...phrases[randomIndex]]
+  console.log(newPhrase);
+  return newPhrase
 }
 getRandomPhraseAsArray(phrases)
 
 
 const addPhraseToDisplay = arr => {
-  for (let i = 0; i < arr.length; i++) {
+  const length = arr.length
+  for (let i = 0; i < length; i++) {
     const li = document.createElement('li')
     li.textContent = arr[i];
     phrase.appendChild(li)
@@ -61,40 +65,24 @@ const checkWin = () => {
     overlay.classList.add('win');
     overlay.children[0].innerHTML = 'You won!'
     overlay.style.display = 'flex'
-    resetGame()
+    startBtn.innerHTML = 'Reset'
   } else if (missed > 4) {
     overlay.classList.add('lost');
     overlay.children[0].innerHTML = 'You lost!'
     overlay.style.display = 'flex'
-    resetGame()
+    startBtn.innerHTML = 'Reset'
   }
 }
 
-const resetGame = () => {
-  startBtn.innerHTML = 'Reset Game'
-  startBtn.addEventListener('click', () => {
-    missed = 0;
-    let resetLetters = document.getElementsByClassName('letter')
-    let resetBtns = document.querySelectorAll('button')
-    for (let i = 0; i < resetLetters.length; i++) {
-      if (resetLetters[i].classList.contains('show')) {
-        resetLetters[i].classList.remove('show')
-      }
-    }
-    for (let i = 0; i < resetBtns.length; i++) {
-      if (resetBtns[i].classList.contains('chosen')) {
-        resetBtns[i].classList.remove('chosen')
-      }
-    } for (let i = 0; i < hearts.length; i++) {
-      hearts[i].setAttribute('src', 'images/liveHeart.png')
-    }
-    getRandomPhraseAsArray(phrases)
-    addPhraseToDisplay(newPhrase)
-  })
-}
 
 startBtn.addEventListener('click', () => {
-  main.children[0].style.display = 'none'
+  if (startBtn.textContent === 'Start Game') {
+    overlay.style.display = 'none';
+  } else if (startBtn.textContent === 'Reset') {
+    location.reload()
+    overlay.style.display = 'none';
+  }
+
 })
 
 qwerty.addEventListener('click', e => {
