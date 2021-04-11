@@ -95,6 +95,8 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  transition-duration: .3s;
+  transition-timing-function: ease-in-out;
 }
 
 /* Keyboard */
@@ -102,6 +104,10 @@ button {
 .keyrow {
   display: flex;
   justify-content: center;
+}
+
+.keyrow button {
+  cursor:pointer; 
 }
 
 .chosen {
