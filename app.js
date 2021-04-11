@@ -1,8 +1,8 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const startBtn = document.querySelector('.btn__reset');
-const scoreboard = document.getElementById('scoreboard').children[0];
-const heart = scoreboard.querySelectorAll('li');
+const scoreboard = document.getElementById('scoreboard')
+const overlay = document.getElementById('overlay')
 let main = document.querySelector('.main-container');
 
 let match = null;
@@ -41,18 +41,30 @@ addPhraseToDisplay(newPhrase)
 
 
 const checkLetter = btn => {
-  const letters = phrase.getElementsByTagName('li')
-  const length = letters.length;
+  const letters = phrase.querySelectorAll('li')
+  let lettersArr = Array.from(letters)
+  const length = lettersArr.length;
 
   for (let i = 0; i < length; i++) {
-    if (letters[i].innerHTML === btn) {
+    if (lettersArr[i].innerHTML.toLowerCase() === btn) {
       match = btn;
-      console.log(match);
-      return letters[i].classList.add('show')
+      lettersArr[i].classList.add('show')
+    } else {
+      console.log('not found');
     }
-  } return match
-
+  } return match;
 }
+
+const checkWin = () => {
+  let letterClasses = document.querySelectorAll('.letter')
+  let showClasses = document.querySelectorAll('.show')
+  console.log(letterClass.length, showClasses.length);
+  if (letterClasses.length === showClasses.length) {
+    overlay.classList.add('win');
+    alert('you won!')
+  }
+}
+checkWin()
 
 startBtn.addEventListener('click', () => {
   main.children[0].remove()
