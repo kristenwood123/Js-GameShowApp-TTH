@@ -6,9 +6,6 @@ const overlay = document.getElementById('overlay')
 const hearts = document.querySelectorAll('.tries img')
 const main = document.querySelector('.main-container');
 
-//resetting game
-
-
 let missed = 0;
 
 const phrases = [
@@ -91,8 +88,9 @@ const resetGame = () => {
     } for (let i = 0; i < hearts.length; i++) {
       hearts[i].setAttribute('src', 'images/liveHeart.png')
     }
+    getRandomPhraseAsArray(phrases)
+    addPhraseToDisplay(newPhrase)
   })
-  getRandomPhraseAsArray(phrases)
 }
 
 startBtn.addEventListener('click', () => {
