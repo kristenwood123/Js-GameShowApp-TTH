@@ -1,5 +1,5 @@
 const qwerty = document.getElementById('qwerty');
-const phrase = document.getElementById('phrase');
+const phrase = document.querySelector('#phrase ul');
 const startBtn = document.querySelector('.btn__reset');
 const scoreboard = document.getElementById('scoreboard')
 const overlay = document.getElementById('overlay')
@@ -22,7 +22,6 @@ const getRandomPhraseAsArray = phrases => {
   //getting random number 0 - 4
   let randomIndex = Math.floor(Math.random() * length)
   newPhrase = [...phrases[randomIndex]]
-  console.log(newPhrase);
   return newPhrase
 }
 getRandomPhraseAsArray(phrases)
@@ -75,6 +74,7 @@ const checkWin = () => {
   }
 }
 
+//Event Listeners 
 startBtn.addEventListener('click', () => {
   if (startBtn.textContent === 'Start Game') {
     overlay.style.display = 'none';
@@ -85,6 +85,7 @@ startBtn.addEventListener('click', () => {
 
 qwerty.addEventListener('click', e => {
   let clickedBtn = e.target
+  clickedBtn.disabled = true;
   if (clickedBtn.className === 'keyrow') {
     return;
   } else {
@@ -99,7 +100,3 @@ qwerty.addEventListener('click', e => {
   }
   checkWin()
 })
-
-
-// Create CSS transitions for each letter in the phrase display as they are revealed.
-// Add a button to the “success” and “failure” screens that reset the game.You’ll have to recreate the buttons in the keyboard, generate a new random phrase, and set the number of misses to zero.
